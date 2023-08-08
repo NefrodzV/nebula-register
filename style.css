@@ -1,3 +1,15 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+form {
+  margin: auto;
+  padding: 48px;
+  width: max-content;
+  height: 25%;
+  box-shadow: 0 0 3px black;
+}
 label {
   display: block;
 }
