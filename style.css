@@ -1,7 +1,7 @@
 body {
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  font-size: 1.3rem;
 }
 form {
   margin: auto;
@@ -22,11 +22,35 @@ label > * {
   gap: 16px;
 }
 
+input {
+  width: 100%;
+}
 #country,
 input {
   box-sizing: border-box;
-  border: 2px solid black;
   padding-top: 1px;
-  width: 250px;
-  height: 25px;
+  height: 40px;
+  font-size: 1.5rem;
+}
+
+label,
+input,
+#country {
+  margin-block: 4px;
+}
+button,
+a {
+  text-align: end;
+  margin-inline: auto;
+  display: block;
+  width: auto;
+}
+
+a {
+  margin-block: 8px;
+}
+
+button {
+  font-size: 1.4rem;
+  margin-block-start: 16px;
 }
