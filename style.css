@@ -1,9 +1,13 @@
 body {
+  background-image: url("nebula.jpg");
+  background-size: contain;
+  margin: 0;
   min-height: 100vh;
   display: flex;
   font-size: 1.3rem;
 }
 form {
+  background-color: azure;
   margin: auto;
   padding: 48px;
   width: max-content;
@@ -11,6 +15,7 @@ form {
   box-shadow: 0 0 3px black;
 }
 label {
+  cursor: pointer;
   display: block;
 }
 label > * {
@@ -40,17 +45,21 @@ input,
 }
 button,
 a {
-  text-align: end;
   margin-inline: auto;
   display: block;
   width: auto;
 }
 
 a {
+  color: black;
+  text-decoration: none;
+  text-align: end;
   margin-block: 8px;
 }
 
 button {
+  cursor: pointer;
+  padding: 8px 16px;
   font-size: 1.4rem;
   margin-block-start: 16px;
 }
