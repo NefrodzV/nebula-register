@@ -1,4 +1,5 @@
 console.log("Hello js!");
+
 const submitButton = document.querySelector('button[type="submit"]');
 console.log(submitButton);
 submitButton.addEventListener("click", (event) => {

@@ -12,12 +12,22 @@
       <h1>Create account</h1>
       <label for="email">
         Email
-        <input type="email" id="email" name="email" />
+        <input
+          placeholder="myemail@hotmail.com"
+          type="email"
+          id="email"
+          name="email"
+        />
       </label>
       <div class="wrapper">
         <label for="zipcode">
           Zipcode
-          <input type="text" id="zipcode" name="zipcode" />
+          <input
+            placeholder="# # # # #"
+            type="text"
+            id="zipcode"
+            name="zipcode"
+          />
         </label>
         <label for="country">
           Country
@@ -30,11 +40,23 @@
       </div>
       <label for="password">
         Password
-        <input type="text" name="password" id="password" />
+        <input
+          placeholder="Enter password"
+          type="text"
+          name="password"
+          id="password"
+        />
       </label>
       <label
         >Confirm password
-        <input type="text" name="password_confirm" id="confirm-password" />
+        <input
+          placeholder="Confirm password"
+          invalid="true"
+          type="text"
+          name="password_confirm"
+          id="confirm-password"
+          required
+        />
       </label>
       <button type="submit">Register</button>
       <a href="#">Already have an account?</a>

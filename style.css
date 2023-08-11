@@ -1,3 +1,11 @@
+:root {
+  --clr-primary: hsl(260, 50%, 14%);
+  --clr-error: #ba1607;
+  --clr-accept: #ba1e68;
+  --clr-secondary: #7649fe;
+  --clr-background: #fcfbfe;
+}
+
 body {
   background-image: url("nebula.jpg");
   background-size: contain;
@@ -7,7 +15,7 @@ body {
   font-size: 1.3rem;
 }
 form {
-  background-color: azure;
+  background-color: var(--clr-background);
   margin: auto;
   padding: 48px;
   width: max-content;
@@ -15,6 +23,7 @@ form {
   box-shadow: 0 0 3px black;
 }
 label {
+  text-shadow: 0 0 1px var(--clr-primary);
   cursor: pointer;
   display: block;
 }
@@ -32,12 +41,39 @@ input {
 }
 #country,
 input {
+  box-shadow: 0 0 2px var(--clr-primary);
   box-sizing: border-box;
   padding-top: 1px;
   height: 40px;
   font-size: 1.5rem;
 }
+input,
+#country {
+  border: 3px solid var(--clr-primary);
+  outline-offset: 1.5px;
+}
 
+input:invalid {
+  border-color: var(--clr-error);
+  outline-color: var(--clr-error-);
+  animation: shake 500ms;
+}
+input:focus,
+#country:focus {
+  border-color: var(--clr-secondary);
+  outline-color: var(--clr-secondary);
+
+  box-shadow: 0 0 3px var(--clr-primary);
+}
+
+input:valid {
+  border-color: green;
+}
+
+input:placeholder-shown {
+  border-color: var(--clr-primary);
+  animation: none;
+}
 label,
 input,
 #country {
@@ -51,17 +87,20 @@ a {
 }
 
 a {
-  color: black;
+  color: var(--clr-secondary);
   text-decoration: none;
   text-align: end;
   margin-block: 8px;
 }
 
 button {
+  text-transform: uppercase;
+  border-radius: 15px;
+  color: var(--clr-background);
+  background-color: var(--clr-primary);
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  transition: all 400ms;
   padding: 8px 16px;
   font-size: 1.4rem;
   margin-block-start: 16px;
@@ -70,14 +109,34 @@ button {
 .ripple {
   position: absolute;
   border-radius: 50%;
+  transition: background-color 500ms;
   transform: scale(0);
   animation: ripple 500ms linear;
-  background-color: yellow;
+  background-color: var(--clr-secondary);
+  opacity: 0.5;
 }
 
 @keyframes ripple {
   to {
     transform: scale(4);
     opacity: 0;
+  }
+}
+
+@keyframes shake {
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translate(2%);
+  }
+
+  20%,
+  40%,
+  60%,
+  80%,
+  100% {
+    transform: translate(0);
   }
 }
