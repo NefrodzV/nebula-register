@@ -45,10 +45,24 @@ emailInput.addEventListener("focusout", () => {
   if (!nextSibling.hasAttribute("active")) {
     nextSibling.toggleAttribute("active");
   }
+
+  // if (nextSibling.hasAttribute("active")) {
+  //   emailInput.setCustomValidity(
+  //     "Enter a valid email example: example@gmail.com"
+  //   );
+  // }
   nextSibling.textContent = "Enter a valid email example:example@gmail.com";
   emailInput.setCustomValidity(
     "Enter a valid email example: example@gmail.com"
   );
+});
+
+emailInput.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    console.log("Enter pressed");
+    event.preventDefault();
+    emailInput.blur();
+  }
 });
 const submitButton = document.querySelector('button[type="submit"]');
 console.log(submitButton);
