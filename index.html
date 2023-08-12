@@ -17,7 +17,11 @@
           type="email"
           id="email"
           name="email"
+          pattern="^\w{5,}@\w{5,}(\.)[a-z]{3,}$"
+          title="Enter a valid email address"
+          required
         />
+        <span class="error"></span>
       </label>
       <div class="wrapper">
         <label for="zipcode">

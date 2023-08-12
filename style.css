@@ -53,24 +53,25 @@ input,
   outline-offset: 1.5px;
 }
 
-input:invalid {
+input:invalid:not(:focus) {
   border-color: var(--clr-error);
   outline-color: var(--clr-error-);
   animation: shake 500ms;
 }
+
 input:focus,
 #country:focus {
   border-color: var(--clr-secondary);
   outline-color: var(--clr-secondary);
-
   box-shadow: 0 0 3px var(--clr-primary);
 }
-
 input:valid {
+  outline-color: green;
   border-color: green;
 }
 
-input:placeholder-shown {
+input:placeholder-shown,
+input:placeholder-shown:invalid {
   border-color: var(--clr-primary);
   animation: none;
 }
@@ -84,6 +85,19 @@ a {
   margin-inline: auto;
   display: block;
   width: auto;
+}
+
+.error {
+  width: 100%;
+  height: 0;
+  transform: scale(0);
+  transition: heigth 300ms ease;
+  color: var(--clr-error);
+  border: 2px solid var(--clr-error);
+}
+
+.error[active] {
+  height: 100%;
 }
 
 a {
