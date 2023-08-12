@@ -1,7 +1,7 @@
 :root {
   --clr-primary: hsl(260, 50%, 14%);
   --clr-error: #ba1607;
-  --clr-accept: #ba1e68;
+  --clr-accept: green;
   --clr-secondary: #7649fe;
   --clr-background: #fcfbfe;
 }
@@ -67,15 +67,16 @@ input:invalid:focus {
 }
 
 input:focus,
-input:focus:invalid #country:focus {
+input:focus:invalid,
+#country:focus {
   border-color: var(--clr-secondary);
   outline-color: var(--clr-secondary);
-  /* box-shadow: 0 0 3px var(--clr-primary); */
 }
+
 :valid,
 :valid:focus {
-  outline-color: green;
-  border-color: green;
+  outline-color: var(--clr-accept);
+  border-color: var(--clr-accept);
 }
 
 input:placeholder-shown,
@@ -107,7 +108,6 @@ a {
 
   font-size: 1rem;
   color: var(--clr-error);
-  /* border: 2px solid var(--clr-error); */
   box-sizing: border-box;
 }
 
