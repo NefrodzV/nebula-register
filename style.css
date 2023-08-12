@@ -23,6 +23,8 @@ form {
   box-shadow: 0 0 3px black;
 }
 label {
+  margin-block: 8px;
+  position: relative;
   text-shadow: 0 0 1px var(--clr-primary);
   cursor: pointer;
   display: block;
@@ -49,7 +51,7 @@ input {
 }
 input,
 #country {
-  border: 3px solid var(--clr-primary);
+  border: 4px solid var(--clr-primary);
   outline-offset: 1.5px;
 }
 
@@ -59,23 +61,30 @@ input:invalid:not(:focus) {
   animation: shake 500ms;
 }
 
-input:focus,
-#country:focus {
+input:invalid:focus {
   border-color: var(--clr-secondary);
   outline-color: var(--clr-secondary);
-  box-shadow: 0 0 3px var(--clr-primary);
 }
-input:valid {
+
+input:focus,
+input:focus:invalid #country:focus {
+  border-color: var(--clr-secondary);
+  outline-color: var(--clr-secondary);
+  /* box-shadow: 0 0 3px var(--clr-primary); */
+}
+:valid,
+:valid:focus {
   outline-color: green;
   border-color: green;
 }
 
 input:placeholder-shown,
-input:placeholder-shown:invalid {
+input:placeholder-shown:not(:focus) {
   border-color: var(--clr-primary);
+  outline-color: var(--clr-primary);
   animation: none;
 }
-label,
+
 input,
 #country {
   margin-block: 4px;
@@ -88,16 +97,24 @@ a {
 }
 
 .error {
-  width: 100%;
+  position: absolute;
+  bottom: -1rem;
+  opacity: 0;
+  width: auto;
   height: 0;
-  transform: scale(0);
-  transition: heigth 300ms ease;
+  overflow: none;
+  transition: all 1s ease;
+
+  font-size: 1rem;
   color: var(--clr-error);
-  border: 2px solid var(--clr-error);
+  /* border: 2px solid var(--clr-error); */
+  box-sizing: border-box;
 }
 
 .error[active] {
-  height: 100%;
+  opacity: 1;
+  height: 16px;
+  width: auto;
 }
 
 a {

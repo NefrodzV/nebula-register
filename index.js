@@ -1,37 +1,60 @@
 console.log("Hello js!");
 const emailInput = document.querySelector("#email");
-
+const nextSibling = emailInput.nextElementSibling;
 const emailRegExp = /\w{5,}@\w{5,}\.[a-z]{3,}/;
 
-// emailInput.setAttribute("pattern", emailRegExp);
 emailInput.addEventListener("input", () => {
   console.log(emailInput.value);
 
-  const isValid =
-    emailInput.value.length === 0 || emailRegExp.test(emailInput.value);
+  const isValid = emailRegExp.test(emailInput.value);
 
   if (isValid) {
+    if (nextSibling.hasAttribute("active")) {
+      nextSibling.toggleAttribute("active");
+    }
+    emailInput.setCustomValidity("");
     console.log("Email is valid");
     return;
   }
+});
 
-  console.log("email is invalid");
+emailInput.addEventListener("focus", () => {
+  console.log("has focus");
+  if (emailInput.value.length > 0 && nextSibling.hasAttribute("active")) {
+    emailInput.setCustomValidity(
+      "Enter a valid email example: example@gmail.com"
+    );
+  }
 });
 
 emailInput.addEventListener("focusout", () => {
   console.log("lost focus");
-  const isValid =
-    emailInput.value.length === 0 || emailRegExp.test(emailInput.value);
+
+  if (emailInput.value.length === 0) return;
+  const isValid = emailRegExp.test(emailInput.value.toLowerCase());
   if (isValid) {
+    if (nextSibling.hasAttribute("active")) {
+      nextSibling.toggleAttribute("active");
+    }
+
     console.log("email is valid and has lost focus");
-    emailInput.setAttribute("valid", "true");
+    emailInput.setCustomValidity("");
+    return;
   }
+
+  if (!nextSibling.hasAttribute("active")) {
+    nextSibling.toggleAttribute("active");
+  }
+  nextSibling.textContent = "Enter a valid email example:example@gmail.com";
+  emailInput.setCustomValidity(
+    "Enter a valid email example: example@gmail.com"
+  );
 });
 const submitButton = document.querySelector('button[type="submit"]');
 console.log(submitButton);
 submitButton.addEventListener("click", (event) => {
-  console.log("clicked!");
-  event.preventDefault();
+  // console.log("clicked!");
+  // event.preventDefault();
   addRipple(event);
 });
 
@@ -56,5 +79,3 @@ function addRipple(event) {
     parent.removeChild(span);
   }, 1000);
 }
-
-function calculatePosition(target) {}
