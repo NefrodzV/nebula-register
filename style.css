@@ -61,13 +61,12 @@ input:invalid:not(:focus) {
   animation: shake 500ms;
 }
 
-input:invalid:focus {
-  border-color: var(--clr-secondary);
-  outline-color: var(--clr-secondary);
+input:invalid {
+  border-color: var(--clr-error);
+  outline-color: var(--clr-error);
 }
 
 input:focus,
-input:focus:invalid,
 #country:focus {
   border-color: var(--clr-secondary);
   outline-color: var(--clr-secondary);
@@ -85,7 +84,10 @@ input:placeholder-shown:not(:focus) {
   outline-color: var(--clr-primary);
   animation: none;
 }
-
+input:placeholder-shown:focus {
+  border-color: var(--clr-secondary);
+  outline-color: var(--clr-secondary);
+}
 input,
 #country {
   margin-block: 4px;
