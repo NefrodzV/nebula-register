@@ -6,6 +6,9 @@ const emailRegExp = /\w{5,}@\w{5,}\.[a-z]{3,}/;
 emailInput.addEventListener("input", () => {
   console.log(emailInput.value);
 
+  if (emailInput.value.length === 0) {
+    nextSibling.toggleAttribute("active");
+  }
   const isValid = emailRegExp.test(emailInput.value);
 
   if (isValid) {
@@ -29,7 +32,6 @@ emailInput.addEventListener("focus", () => {
 
 emailInput.addEventListener("focusout", () => {
   console.log("lost focus");
-
   if (emailInput.value.length === 0) return;
   const isValid = emailRegExp.test(emailInput.value.toLowerCase());
   if (isValid) {
@@ -46,12 +48,7 @@ emailInput.addEventListener("focusout", () => {
     nextSibling.toggleAttribute("active");
   }
 
-  // if (nextSibling.hasAttribute("active")) {
-  //   emailInput.setCustomValidity(
-  //     "Enter a valid email example: example@gmail.com"
-  //   );
-  // }
-  nextSibling.textContent = "Enter a valid email example:example@gmail.com";
+  nextSibling.textContent = "Enter a valid email example:myemail@gmail.com";
   emailInput.setCustomValidity(
     "Enter a valid email example: example@gmail.com"
   );
@@ -62,6 +59,11 @@ emailInput.addEventListener("keypress", (event) => {
     console.log("Enter pressed");
     event.preventDefault();
     emailInput.blur();
+  }
+
+  if (event.code === "Space" && emailInput.value.trim().length === 0) {
+    console.log("space pressed");
+    event.preventDefault();
   }
 });
 const submitButton = document.querySelector('button[type="submit"]');
