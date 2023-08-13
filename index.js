@@ -3,11 +3,15 @@ const emailInput = document.querySelector("#email");
 const nextSibling = emailInput.nextElementSibling;
 const emailRegExp = /\w{5,}@\w{5,}\.[a-z]{3,}/;
 
+const EMAIL_ERROR_STRING = "Enter a valid email example: example@gmail.com";
+
 emailInput.addEventListener("input", () => {
   console.log(emailInput.value);
 
   if (emailInput.value.length === 0) {
-    nextSibling.toggleAttribute("active");
+    if (nextSibling.hasAttribute("active")) {
+      nextSibling.toggleAttribute("active");
+    }
   }
   const isValid = emailRegExp.test(emailInput.value);
 
@@ -22,11 +26,8 @@ emailInput.addEventListener("input", () => {
 });
 
 emailInput.addEventListener("focus", () => {
-  console.log("has focus");
   if (emailInput.value.length > 0 && nextSibling.hasAttribute("active")) {
-    emailInput.setCustomValidity(
-      "Enter a valid email example: example@gmail.com"
-    );
+    emailInput.setCustomValidity(EMAIL_ERROR_STRING);
   }
 });
 
@@ -48,10 +49,8 @@ emailInput.addEventListener("focusout", () => {
     nextSibling.toggleAttribute("active");
   }
 
-  nextSibling.textContent = "Enter a valid email example:myemail@gmail.com";
-  emailInput.setCustomValidity(
-    "Enter a valid email example: example@gmail.com"
-  );
+  nextSibling.textContent = EMAIL_ERROR_STRING;
+  emailInput.setCustomValidity(EMAIL_ERROR_STRING);
 });
 
 emailInput.addEventListener("keypress", (event) => {
