@@ -34,6 +34,9 @@ label > * {
 }
 
 .wrapper {
+  padding: 0;
+  margin: 0;
+  height: min-content;
   display: flex;
   gap: 16px;
 }
@@ -43,9 +46,7 @@ input {
 }
 #country,
 input {
-  box-shadow: 0 0 2px var(--clr-primary);
   box-sizing: border-box;
-  padding-top: 1px;
   height: 40px;
   font-size: 1.5rem;
 }
@@ -88,10 +89,7 @@ input:placeholder-shown:focus {
   border-color: var(--clr-secondary);
   outline-color: var(--clr-secondary);
 }
-input,
-#country {
-  margin-block: 4px;
-}
+
 button,
 a {
   margin-inline: auto;
