@@ -1,33 +1,34 @@
 console.log("Hello js!");
 const emailInput = document.querySelector("#email");
-const nextSibling = emailInput.nextElementSibling;
+const emailSibling = emailInput.nextElementSibling;
 const emailRegExp = /\w{5,}@\w{5,}\.[a-z]{3,}/;
-
 const EMAIL_ERROR_STRING = "Enter a valid email example: example@gmail.com";
+
+const zipcodeInput = document.querySelector("#zipcode");
+const zipCodeSibling = zipcodeInput.nextElementSibling;
+const ZIPCODE_ERROR_STRING = "Zipcode must be 5 numbers";
+const zipcodeRegExp = /[0-9]{5}/;
+
+const passwordInput = document.querySelector("#password");
+const passwordSibling = passwordInput.nextElementSibling;
+const passwordRegexExp = /\w{8,}/;
+const PASSWORD_LENGTH_ERROR_STRING = "Must be minimum 8 caracters";
 
 emailInput.addEventListener("input", () => {
   console.log(emailInput.value);
 
-  if (emailInput.value.length === 0) {
-    if (nextSibling.hasAttribute("active")) {
-      nextSibling.toggleAttribute("active");
-    }
+  if (emailInput.value.length === 0 && emailSibling.hasAttribute("active")) {
+    emailSibling.toggleAttribute("active");
   }
   const isValid = emailRegExp.test(emailInput.value);
 
   if (isValid) {
-    if (nextSibling.hasAttribute("active")) {
-      nextSibling.toggleAttribute("active");
+    if (emailSibling.hasAttribute("active")) {
+      emailSibling.toggleAttribute("active");
     }
     emailInput.setCustomValidity("");
     console.log("Email is valid");
     return;
-  }
-});
-
-emailInput.addEventListener("focus", () => {
-  if (emailInput.value.length > 0 && nextSibling.hasAttribute("active")) {
-    emailInput.setCustomValidity(EMAIL_ERROR_STRING);
   }
 });
 
@@ -36,8 +37,8 @@ emailInput.addEventListener("focusout", () => {
   if (emailInput.value.length === 0) return;
   const isValid = emailRegExp.test(emailInput.value.toLowerCase());
   if (isValid) {
-    if (nextSibling.hasAttribute("active")) {
-      nextSibling.toggleAttribute("active");
+    if (emailSibling.hasAttribute("active")) {
+      emailSibling.toggleAttribute("active");
     }
 
     console.log("email is valid and has lost focus");
@@ -45,31 +46,140 @@ emailInput.addEventListener("focusout", () => {
     return;
   }
 
-  if (!nextSibling.hasAttribute("active")) {
-    nextSibling.toggleAttribute("active");
+  if (!emailSibling.hasAttribute("active")) {
+    emailSibling.toggleAttribute("active");
   }
 
-  nextSibling.textContent = EMAIL_ERROR_STRING;
+  emailSibling.textContent = EMAIL_ERROR_STRING;
   emailInput.setCustomValidity(EMAIL_ERROR_STRING);
 });
 
 emailInput.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
-    console.log("Enter pressed");
+    // console.log("Enter pressed");
     event.preventDefault();
     emailInput.blur();
   }
 
   if (event.code === "Space" && emailInput.value.trim().length === 0) {
-    console.log("space pressed");
+    // console.log("space pressed");
     event.preventDefault();
   }
 });
+
+zipcodeInput.addEventListener("input", () => {
+  if (
+    zipcodeInput.value.length === 0 &&
+    zipCodeSibling.hasAttribute("active")
+  ) {
+    zipCodeSibling.toggleAttribute("active");
+  }
+
+  const isValid = zipcodeRegExp.test(zipcodeInput.value);
+  if (isValid) {
+    if (zipCodeSibling.hasAttribute("active")) {
+      zipCodeSibling.toggleAttribute("active");
+    }
+    zipcodeInput.setCustomValidity("");
+    console.log("Zipcode is valid");
+    return;
+  }
+});
+
+zipcodeInput.addEventListener("focusout", () => {
+  if (zipcodeInput.value.length === 0) return;
+
+  const isValid = zipcodeRegExp.test(zipcodeInput.value);
+  if (isValid) {
+    if (zipCodeSibling.hasAttribute("active")) {
+      zipCodeSibling.toggleAttribute("active");
+    }
+
+    console.log("zipcode is valid and has lost focus");
+    zipcodeInput.setCustomValidity("");
+    return;
+  }
+
+  if (!zipCodeSibling.hasAttribute("active")) {
+    zipCodeSibling.toggleAttribute("active");
+  }
+
+  zipCodeSibling.textContent = ZIPCODE_ERROR_STRING;
+  zipcodeInput.setCustomValidity(ZIPCODE_ERROR_STRING);
+});
+
+zipcodeInput.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    // console.log("Enter pressed");
+    event.preventDefault();
+    zipcodeInput.blur();
+  }
+
+  if (event.code === "Space" && emailInput.value.trim().length === 0) {
+    // console.log("space pressed");
+    event.preventDefault();
+  }
+});
+
+passwordInput.addEventListener("input", () => {
+  if (
+    passwordInput.value.length === 0 &&
+    passwordSibling.hasAttribute("active")
+  ) {
+    passwordSibling.toggleAttribute("active");
+  }
+
+  const isValid = passwordRegexExp.test(passwordInput.value);
+  if (isValid) {
+    if (passwordSibling.hasAttribute("active")) {
+      passwordSibling.toggleAttribute("active");
+    }
+    passwordInput.setCustomValidity("");
+    console.log("Passowrd is valid");
+    return;
+  }
+});
+
+passwordInput.addEventListener("focusout", () => {
+  if (passwordInput.value.length === 0) return;
+
+  const isValid = passwordRegexExp.test(passwordInput.value);
+  if (isValid) {
+    if (passwordSibling.hasAttribute("active")) {
+      passwordSibling.toggleAttribute("active");
+    }
+
+    console.log("passsword is valid and has lost focus");
+    passwordInput.setCustomValidity("");
+    return;
+  }
+
+  if (!passwordSibling.hasAttribute("active")) {
+    passwordSibling.toggleAttribute("active");
+  }
+
+  passwordSibling.textContent = PASSWORD_LENGTH_ERROR_STRING;
+  passwordInput.setCustomValidity(PASSWORD_LENGTH_ERROR_STRING);
+});
+
+passwordInput.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    // console.log("Enter pressed");
+    event.preventDefault();
+    passwordInput.blur();
+  }
+
+  if (event.code === "Space" && passwordInput.value.trim().length === 0) {
+    // console.log("space pressed");
+    event.preventDefault();
+  }
+});
+
 const submitButton = document.querySelector('button[type="submit"]');
 console.log(submitButton);
 submitButton.addEventListener("click", (event) => {
   // console.log("clicked!");
-  // event.preventDefault();
+  event.preventDefault();
   addRipple(event);
 });
 
@@ -86,7 +196,6 @@ function addRipple(event) {
   span.style.top = `${event.clientY - parent.offsetTop - radius}px`;
   span.style.left = `${event.clientX - parent.offsetLeft - radius}px`;
   span.classList.add("ripple");
-  // Check if an element with ripple exists and remove it
 
   parent.appendChild(span);
 
