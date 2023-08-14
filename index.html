@@ -26,11 +26,14 @@
         <label for="zipcode">
           Zipcode
           <input
-            placeholder="# # # # #"
+            placeholder="#####"
             type="text"
             id="zipcode"
             name="zipcode"
+            maxlength="5"
+            required
           />
+          <span class="error"></span>
         </label>
         <label for="country">
           Country
