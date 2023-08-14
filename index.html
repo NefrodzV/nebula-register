@@ -31,6 +31,7 @@
             id="zipcode"
             name="zipcode"
             maxlength="5"
+            pattern="[0-9]{5}"
             required
           />
           <span class="error"></span>
@@ -51,7 +52,10 @@
           type="text"
           name="password"
           id="password"
+          pattern="\w{8,}"
+          required
         />
+        <span class="error"></span>
       </label>
       <label
         >Confirm password
@@ -62,7 +66,7 @@
           name="password_confirm"
           id="confirm-password"
           required
-        />
+        /><span class="error"></span>
       </label>
       <button type="submit">Register</button>
       <a href="#">Already have an account?</a>
