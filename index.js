@@ -14,6 +14,11 @@ const passwordSibling = passwordInput.nextElementSibling;
 const passwordRegexExp = /\w{8,}/;
 const PASSWORD_LENGTH_ERROR_STRING = "Must be minimum 8 caracters";
 
+const confirmPasswordInput = document.querySelector("#confirm-password");
+const confirmPasswordSibling = confirmPasswordInput.nextElementSibling;
+const CONFIRM_EQUALITY_ERROR_STRING =
+  "Confirm password is not equal to password";
+
 emailInput.addEventListener("input", () => {
   console.log(emailInput.value);
 
@@ -167,6 +172,61 @@ passwordInput.addEventListener("keypress", (event) => {
     // console.log("Enter pressed");
     event.preventDefault();
     passwordInput.blur();
+  }
+
+  if (event.code === "Space" && passwordInput.value.trim().length === 0) {
+    // console.log("space pressed");
+    event.preventDefault();
+  }
+});
+
+confirmPasswordInput.addEventListener("input", () => {
+  if (
+    confirmPasswordInput.value.length === 0 &&
+    confirmPasswordSibling.hasAttribute("active")
+  ) {
+    confirmPasswordSibling.toggleAttribute("active");
+  }
+
+  const isValid = passwordRegexExp.test(confirmPasswordInput.value);
+  if (isValid) {
+    if (confirmPasswordSibling.hasAttribute("active")) {
+      confirmPasswordSibling.toggleAttribute("active");
+    }
+    confirmPasswordInput.setCustomValidity("");
+    console.log("Confirm password is valid is valid");
+    return;
+  }
+});
+
+confirmPasswordInput.addEventListener("focusout", () => {
+  if (confirmPasswordInput.value.length === 0) return;
+
+  const isValid =
+    confirmPasswordInput.value.trim() === passwordInput.value.trim();
+  if (isValid) {
+    if (confirmPasswordSibling.hasAttribute("active")) {
+      confirmPasswordSibling.toggleAttribute("active");
+    }
+
+    console.log("confirm password is valid and has lost focus");
+    confirmPasswordInput.setCustomValidity("");
+    return;
+  }
+
+  if (!confirmPasswordSibling.hasAttribute("active")) {
+    confirmPasswordSibling.toggleAttribute("active");
+  }
+
+  confirmPasswordSibling.textContent = CONFIRM_EQUALITY_ERROR_STRING;
+  confirmPasswordInput.setCustomValidity(CONFIRM_EQUALITY_ERROR_STRING);
+});
+
+confirmPasswordInput.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    // console.log("Enter pressed");
+    event.preventDefault();
+    confirmPasswordInput.blur();
   }
 
   if (event.code === "Space" && passwordInput.value.trim().length === 0) {
