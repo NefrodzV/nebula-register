@@ -23,6 +23,8 @@ const countrySelect = document.querySelector("#country");
 const countrySelectSibling = countrySelect.nextElementSibling;
 const NO_SELECTION_ERROR = "Make a selection";
 
+let errorFlag = false;
+
 emailInput.addEventListener("input", () => {
   console.log(emailInput.value);
 
@@ -35,6 +37,7 @@ emailInput.addEventListener("input", () => {
     if (emailSibling.hasAttribute("active")) {
       emailSibling.toggleAttribute("active");
     }
+    emailInput.classList.remove("fieldEmptyError");
     emailInput.setCustomValidity("");
     console.log("Email is valid");
     return;
@@ -89,6 +92,7 @@ zipcodeInput.addEventListener("input", () => {
     if (zipCodeSibling.hasAttribute("active")) {
       zipCodeSibling.toggleAttribute("active");
     }
+    zipcodeInput.classList.remove("fieldEmptyError");
     zipcodeInput.setCustomValidity("");
     console.log("Zipcode is valid");
     return;
@@ -143,6 +147,7 @@ passwordInput.addEventListener("input", () => {
     if (passwordSibling.hasAttribute("active")) {
       passwordSibling.toggleAttribute("active");
     }
+    passwordInput.classList.remove("fieldEmptyError");
     passwordInput.setCustomValidity("");
     console.log("Passowrd is valid");
     return;
@@ -197,6 +202,7 @@ confirmPasswordInput.addEventListener("input", () => {
     if (confirmPasswordSibling.hasAttribute("active")) {
       confirmPasswordSibling.toggleAttribute("active");
     }
+    emailInput.classList.remove("fieldEmptyError");
     confirmPasswordInput.setCustomValidity("");
     console.log("Confirm password is valid is valid");
     return;
@@ -213,6 +219,7 @@ confirmPasswordInput.addEventListener("focusout", () => {
       confirmPasswordSibling.toggleAttribute("active");
     }
 
+    confirmPasswordInput.classList.remove("fieldEmptyError");
     console.log("confirm password is valid and has lost focus");
     confirmPasswordInput.setCustomValidity("");
     return;
@@ -241,14 +248,14 @@ confirmPasswordInput.addEventListener("keypress", (event) => {
 
 countrySelect.addEventListener("input", () => {
   const country = countrySelect.value.trim();
+  countrySelect.className = "";
   if (country.length != 0) {
     if (countrySelectSibling.hasAttribute("active")) {
       countrySelectSibling.toggleAttribute("active");
     }
-
+    emailInput.classList.remove("fieldEmptyError");
     countrySelect.setCustomValidity("");
     console.log("There is a selection disable error");
-    countrySelect.className = "";
   }
 });
 
@@ -280,9 +287,51 @@ countrySelect.addEventListener("focusout", () => {
 const submitButton = document.querySelector('button[type="submit"]');
 console.log(submitButton);
 submitButton.addEventListener("click", (event) => {
-  // console.log("clicked!");
-  event.preventDefault();
   addRipple(event);
+  event.preventDefault();
+  blur();
+  console.log("Submit button clicked");
+  errorFlag = false;
+
+  const inputToValidate = [
+    emailInput,
+    zipcodeInput,
+    countrySelect,
+    passwordInput,
+    confirmPasswordInput,
+  ];
+
+  // For loop to check if the are empty
+  for (let i = 0; i < inputToValidate.length; i++) {
+    console.log("iteration " + i);
+    let input = inputToValidate[i];
+    let fieldIsValid = !input.validity.valueMissing;
+    if (fieldIsValid) {
+      console.log("Field is valid" + input.type);
+      continue;
+    }
+    console.log("field is not valid" + input.type);
+    showError(input);
+  }
+
+  const emailIsValid = emailInput.checkValidity();
+  const zipCodeisValid = zipcodeInput.checkValidity();
+  const countryIsValid = countrySelect.checkValidity();
+  const passwordIsValid = passwordInput.checkValidity();
+  const confirmPasswordIsValid = confirmPasswordInput.checkValidity();
+
+  if (
+    !emailIsValid ||
+    !zipCodeisValid ||
+    !countryIsValid ||
+    !passwordIsValid ||
+    !confirmPasswordIsValid
+  ) {
+    console.log("There are invalid fields not submitting");
+    return;
+  }
+
+  alert("Everything is valid submitting");
 });
 
 function addRipple(event) {
@@ -304,4 +353,14 @@ function addRipple(event) {
   setTimeout(() => {
     parent.removeChild(span);
   }, 1000);
+}
+
+function showError(input) {
+  input.className = "fieldEmptyError";
+  const nextElementSibling = input.nextElementSibling;
+  if (!nextElementSibling.hasAttribute("active")) {
+    nextElementSibling.toggleAttribute("active");
+  }
+
+  nextElementSibling.textContent = "Field cannot be empty";
 }
