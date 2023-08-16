@@ -144,6 +144,7 @@ button {
 .fieldEmptyError {
   border-color: var(--clr-error);
   outline-color: var(--clr-error);
+  animation: shake 500ms;
 }
 
 @keyframes ripple {
