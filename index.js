@@ -19,6 +19,10 @@ const confirmPasswordSibling = confirmPasswordInput.nextElementSibling;
 const CONFIRM_EQUALITY_ERROR_STRING =
   "Confirm password is not equal to password";
 
+const countrySelect = document.querySelector("#country");
+const countrySelectSibling = countrySelect.nextElementSibling;
+const NO_SELECTION_ERROR = "Make a selection";
+
 emailInput.addEventListener("input", () => {
   console.log(emailInput.value);
 
@@ -233,6 +237,44 @@ confirmPasswordInput.addEventListener("keypress", (event) => {
     // console.log("space pressed");
     event.preventDefault();
   }
+});
+
+countrySelect.addEventListener("input", () => {
+  const country = countrySelect.value.trim();
+  if (country.length != 0) {
+    if (countrySelectSibling.hasAttribute("active")) {
+      countrySelectSibling.toggleAttribute("active");
+    }
+
+    countrySelect.setCustomValidity("");
+    console.log("There is a selection disable error");
+    countrySelect.className = "";
+  }
+});
+
+countrySelect.addEventListener("focusout", () => {
+  const country = countrySelect.value.trim();
+  console.log("validity" + countrySelect.checkValidity());
+
+  if (country.length != 0) {
+    if (countrySelectSibling.hasAttribute("active")) {
+      countrySelectSibling.toggleAttribute("active");
+    }
+
+    countrySelect.setCustomValidity("");
+    console.log("There is a selection disable error");
+    countrySelect.className = "";
+
+    return;
+  }
+  if (!countrySelectSibling.hasAttribute("active")) {
+    countrySelectSibling.toggleAttribute("active");
+  }
+
+  countrySelectSibling.textContent = NO_SELECTION_ERROR;
+  countrySelect.setCustomValidity(NO_SELECTION_ERROR);
+  countrySelect.className = "fieldEmptyError";
+  console.log("selection lost focus");
 });
 
 const submitButton = document.querySelector('button[type="submit"]');

@@ -38,11 +38,13 @@
         </label>
         <label for="country">
           Country
-          <select id="country" name="country" size="1">
+          <select id="country" name="country" required>
+            <option value="" hidden>-- Make a selection --</option>
             <option value="puerto rico">Puerto Rico</option>
             <option value="united states">USA</option>
             <option value="canada">Canada</option>
           </select>
+          <span class="error"></span>
         </label>
       </div>
       <label for="password">
