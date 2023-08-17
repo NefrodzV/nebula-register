@@ -24,7 +24,6 @@ emailInput.addEventListener("input", () => {
   if (Validator.isEmpty(emailInput.value) && isActive(emailSibling)) {
     toggleActive(emailSibling);
   }
-
   if (Validator.isValid(emailInput.value, Validator.emailRegExp)) {
     if (isActive(emailSibling)) {
       toggleActive(emailSibling);
@@ -36,20 +35,16 @@ emailInput.addEventListener("input", () => {
 
 emailInput.addEventListener("focusout", () => {
   if (Validator.isEmpty(emailInput.value)) return;
-
   if (Validator.isValid(emailInput.value, Validator.emailRegExp)) {
     if (isActive(emailSibling)) {
       toggleActive(emailSibling);
     }
-
     setFieldValid(emailInput);
     return;
   }
-
   if (!isActive(emailSibling)) {
     toggleActive(emailSibling);
   }
-
   setFieldInvalid(emailInput, string.EMAIL_ERROR_STRING);
 });
 
@@ -58,61 +53,45 @@ emailInput.addEventListener("keypress", (event) => {
     event.preventDefault();
     emailInput.blur();
   }
-
   if (event.code === "Space" && Validator.isEmpty(emailInput.value)) {
     event.preventDefault();
   }
 });
 
 zipcodeInput.addEventListener("input", () => {
-  if (
-    zipcodeInput.value.length === 0 &&
-    zipCodeSibling.hasAttribute("active")
-  ) {
-    zipCodeSibling.toggleAttribute("active");
+  if (Validator.isEmpty(zipcodeInput.value) && isActive(zipCodeSibling)) {
+    toggleActive(zipCodeSibling);
   }
-
-  const isValid = zipcodeRegExp.test(zipcodeInput.value);
-  if (isValid) {
-    if (zipCodeSibling.hasAttribute("active")) {
-      zipCodeSibling.toggleAttribute("active");
+  if (Validator.isValid(zipcodeInput.value, Validator.zipcodeRegExp)) {
+    if (isActive(zipCodeSibling)) {
+      toggleActive(zipCodeSibling);
     }
-    zipcodeInput.classList.remove("fieldEmptyError");
-    zipcodeInput.setCustomValidity("");
-    console.log("Zipcode is valid");
+    setFieldValid(zipcodeInput);
     return;
   }
 });
 
 zipcodeInput.addEventListener("focusout", () => {
-  if (zipcodeInput.value.length === 0) return;
+  if (Validator.isEmpty(zipcodeInput.value)) return;
 
-  const isValid = zipcodeRegExp.test(zipcodeInput.value);
-  if (isValid) {
-    if (zipCodeSibling.hasAttribute("active")) {
-      zipCodeSibling.toggleAttribute("active");
+  if (Validator.isValid(zipcodeInput.value, Validator.zipcodeRegExp)) {
+    if (isActive(zipCodeSibling)) {
+      toggleActive(zipCodeSibling);
     }
-
-    console.log("zipcode is valid and has lost focus");
-    zipcodeInput.setCustomValidity("");
+    setFieldValid(zipcodeInput);
     return;
   }
-
-  if (!zipCodeSibling.hasAttribute("active")) {
-    zipCodeSibling.toggleAttribute("active");
+  if (!isActive(zipCodeSibling)) {
+    toggleActive(zipCodeSibling);
   }
-
-  zipCodeSibling.textContent = string.ZIPCODE_ERROR_STRING;
-  zipcodeInput.setCustomValidity(string.ZIPCODE_ERROR_STRING);
+  setFieldInvalid(zipcodeInput, string.ZIPCODE_ERROR_STRING);
 });
 
 zipcodeInput.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
-    // console.log("Enter pressed");
     event.preventDefault();
     zipcodeInput.blur();
   }
-
   if (event.code === "Space" && emailInput.value.trim().length === 0) {
     // console.log("space pressed");
     event.preventDefault();
@@ -120,127 +99,91 @@ zipcodeInput.addEventListener("keypress", (event) => {
 });
 
 passwordInput.addEventListener("input", () => {
-  if (
-    passwordInput.value.length === 0 &&
-    passwordSibling.hasAttribute("active")
-  ) {
-    passwordSibling.toggleAttribute("active");
+  if (Validator.isEmpty(passwordInput.value) && isActive(passwordSibling)) {
+    toggleActive(passwordSibling);
   }
-
-  const isValid = passwordRegexExp.test(passwordInput.value);
-  if (isValid) {
-    if (passwordSibling.hasAttribute("active")) {
-      passwordSibling.toggleAttribute("active");
+  if (Validator.isValid(passwordInput.value, Validator.passwordRegExp)) {
+    if (isActive(passwordSibling)) {
+      toggleActive(passwordSibling);
     }
-    passwordInput.classList.remove("fieldEmptyError");
-    passwordInput.setCustomValidity("");
-    console.log("Passowrd is valid");
+    setFieldValid(passwordInput);
     return;
   }
 });
 
 passwordInput.addEventListener("focusout", () => {
-  if (passwordInput.value.length === 0) return;
-
-  const isValid = passwordRegexExp.test(passwordInput.value);
-  if (isValid) {
-    if (passwordSibling.hasAttribute("active")) {
-      passwordSibling.toggleAttribute("active");
+  if (Validator.isEmpty(passwordInput.value)) return;
+  if (Validator.isValid(passwordInput.value, Validator.passwordRegExp)) {
+    if (isActive(passwordSibling)) {
+      toggleActive(passwordSibling);
     }
 
-    console.log("passsword is valid and has lost focus");
-    passwordInput.setCustomValidity("");
+    setFieldValid(passwordInput);
     return;
   }
-
-  if (!passwordSibling.hasAttribute("active")) {
-    passwordSibling.toggleAttribute("active");
+  if (!isActive(passwordSibling)) {
+    toggleActive(passwordSibling);
   }
-
-  passwordSibling.textContent = string.PASSWORD_LENGTH_ERROR_STRING;
-  passwordInput.setCustomValidity(string.PASSWORD_LENGTH_ERROR_STRING);
+  setFieldInvalid(passwordInput, string.PASSWORD_LENGTH_ERROR_STRING);
 });
 
 passwordInput.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
-    // console.log("Enter pressed");
     event.preventDefault();
     passwordInput.blur();
   }
-
   if (event.code === "Space" && passwordInput.value.trim().length === 0) {
-    // console.log("space pressed");
     event.preventDefault();
   }
 });
 
 confirmPasswordInput.addEventListener("input", () => {
   if (
-    confirmPasswordInput.value.length === 0 &&
-    confirmPasswordSibling.hasAttribute("active")
+    Validator.isEmpty(confirmPasswordInput.value) &&
+    isActive(confirmPasswordSibling)
   ) {
-    confirmPasswordSibling.toggleAttribute("active");
+    toggleActive(confirmPasswordSibling);
   }
-
-  const isValid = passwordRegexExp.test(confirmPasswordInput.value);
-  if (isValid) {
-    if (confirmPasswordSibling.hasAttribute("active")) {
-      confirmPasswordSibling.toggleAttribute("active");
+  if (Validator.isValid(passwordInput.value, Validator.passwordRegExp)) {
+    if (isActive(confirmPasswordSibling)) {
+      toggleActive(confirmPasswordSibling);
     }
-    emailInput.classList.remove("fieldEmptyError");
-    confirmPasswordInput.setCustomValidity("");
-    console.log("Confirm password is valid is valid");
+    setFieldValid(confirmPasswordInput);
     return;
   }
 });
 
 confirmPasswordInput.addEventListener("focusout", () => {
-  if (confirmPasswordInput.value.length === 0) return;
-
-  const isValid =
-    confirmPasswordInput.value.trim() === passwordInput.value.trim();
-  if (isValid) {
-    if (confirmPasswordSibling.hasAttribute("active")) {
-      confirmPasswordSibling.toggleAttribute("active");
+  if (Validator.isEmpty(confirmPasswordInput.value)) return;
+  if (Validator.areEqual(confirmPasswordInput.value, passwordInput.value)) {
+    if (isActive(passwordSibling)) {
+      toggleActive(passwordSibling);
     }
-
-    confirmPasswordInput.classList.remove("fieldEmptyError");
-    console.log("confirm password is valid and has lost focus");
-    confirmPasswordInput.setCustomValidity("");
+    setFieldValid(confirmPasswordInput);
     return;
   }
-
-  if (!confirmPasswordSibling.hasAttribute("active")) {
-    confirmPasswordSibling.toggleAttribute("active");
+  if (!isActive(confirmPasswordSibling)) {
+    toggleActive(confirmPasswordSibling);
   }
-
-  confirmPasswordSibling.textContent = string.CONFIRM_EQUALITY_ERROR_STRING;
-  confirmPasswordInput.setCustomValidity(string.CONFIRM_EQUALITY_ERROR_STRING);
+  setFieldInvalid(confirmPasswordInput, string.CONFIRM_EQUALITY_ERROR_STRING);
 });
-
 confirmPasswordInput.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
-    // console.log("Enter pressed");
     event.preventDefault();
     confirmPasswordInput.blur();
   }
-
-  if (event.code === "Space" && passwordInput.value.trim().length === 0) {
-    // console.log("space pressed");
+  if (event.code === "Space" && Validator.isEmpty(confirmPasswordInput.value)) {
     event.preventDefault();
   }
 });
 
 countrySelect.addEventListener("input", () => {
-  const country = countrySelect.value.trim();
-  countrySelect.className = "";
-  if (country.length != 0) {
-    if (countrySelectSibling.hasAttribute("active")) {
-      countrySelectSibling.toggleAttribute("active");
+  const country = countrySelect.value;
+  if (!Validator.isEmpty(country)) {
+    if (isActive(countrySelectSibling)) {
+      toggleActive(countrySelectSibling);
     }
-    emailInput.classList.remove("fieldEmptyError");
-    countrySelect.setCustomValidity("");
-    console.log("There is a selection disable error");
+    setFieldValid(countrySelect);
   }
 });
 
@@ -248,25 +191,18 @@ countrySelect.addEventListener("focusout", () => {
   const country = countrySelect.value.trim();
   console.log("validity" + countrySelect.checkValidity());
 
-  if (country.length != 0) {
-    if (countrySelectSibling.hasAttribute("active")) {
-      countrySelectSibling.toggleAttribute("active");
+  if (!Validator.isEmpty(country)) {
+    if (isActive(countrySelectSibling)) {
+      toggleActive(countrySelectSibling);
     }
-
-    countrySelect.setCustomValidity("");
-    console.log("There is a selection disable error");
-    countrySelect.className = "";
-
+    setFieldValid(countrySelect);
     return;
   }
-  if (!countrySelectSibling.hasAttribute("active")) {
-    countrySelectSibling.toggleAttribute("active");
+  if (!isActive(countrySelectSibling)) {
+    toggleActive(countrySelectSibling);
   }
-
-  countrySelectSibling.textContent = string.NO_SELECTION_ERROR;
-  countrySelect.setCustomValidity(string.NO_SELECTION_ERROR);
+  setFieldInvalid(countrySelect, string.NO_SELECTION_ERROR_STRING);
   countrySelect.className = "fieldEmptyError";
-  console.log("selection lost focus");
 });
 
 const submitButton = document.querySelector('button[type="submit"]');
@@ -275,9 +211,8 @@ submitButton.addEventListener("click", (event) => {
   addRipple(event);
   event.preventDefault();
   blur();
-  console.log("Submit button clicked");
 
-  const inputToValidate = [
+  const inputsToValidate = [
     emailInput,
     zipcodeInput,
     countrySelect,
@@ -286,15 +221,14 @@ submitButton.addEventListener("click", (event) => {
   ];
 
   // For loop to check if the are empty
-  for (let i = 0; i < inputToValidate.length; i++) {
+  for (let i = 0; i < inputsToValidate.length; i++) {
     console.log("iteration " + i);
-    let input = inputToValidate[i];
+    let input = inputsToValidate[i];
     let fieldIsValid = !input.validity.valueMissing;
+    // If is true go to the next loop
     if (fieldIsValid) {
-      console.log("Field is valid" + input.type);
       continue;
     }
-    console.log("field is not valid" + input.type);
     showError(input);
   }
 
@@ -311,7 +245,6 @@ submitButton.addEventListener("click", (event) => {
     !passwordIsValid ||
     !confirmPasswordIsValid
   ) {
-    console.log("There are invalid fields not submitting");
     return;
   }
 
@@ -345,7 +278,6 @@ function showError(input) {
   if (!nextElementSibling.hasAttribute("active")) {
     nextElementSibling.toggleAttribute("active");
   }
-
   nextElementSibling.textContent = string.EMPTY_FIELD_ERROR_STRING;
 }
 
@@ -363,6 +295,7 @@ function setFieldValid(input) {
   }
   input.setCustomValidity("");
 }
+
 function setFieldInvalid(input, errorMsg) {
   input.nextElementSibling.textContent = errorMsg;
   input.setCustomValidity(errorMsg);
