@@ -1,5 +1,8 @@
-console.log("Hello js!");
+import "./style.css";
+console.log("Hello js in webpack!");
 const emailInput = document.querySelector("#email");
+console.log(emailInput);
+
 const emailSibling = emailInput.nextElementSibling;
 const emailRegExp = /\w{5,}@\w{5,}\.[a-z]{3,}/;
 const EMAIL_ERROR_STRING = "Enter a valid email example: example@gmail.com";
