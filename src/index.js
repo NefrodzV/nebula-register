@@ -1,11 +1,11 @@
 import "./style.css";
+import string from "./res/string";
 console.log("Hello js in webpack!");
 const emailInput = document.querySelector("#email");
-console.log(emailInput);
 
 const emailSibling = emailInput.nextElementSibling;
 const emailRegExp = /\w{5,}@\w{5,}\.[a-z]{3,}/;
-const EMAIL_ERROR_STRING = "Enter a valid email example: example@gmail.com";
+// const EMAIL_ERROR_STRING = "Enter a valid email example: example@gmail.com";
 
 const zipcodeInput = document.querySelector("#zipcode");
 const zipCodeSibling = zipcodeInput.nextElementSibling;
@@ -25,8 +25,6 @@ const CONFIRM_EQUALITY_ERROR_STRING =
 const countrySelect = document.querySelector("#country");
 const countrySelectSibling = countrySelect.nextElementSibling;
 const NO_SELECTION_ERROR = "Make a selection";
-
-let errorFlag = false;
 
 emailInput.addEventListener("input", () => {
   console.log(emailInput.value);
@@ -65,8 +63,8 @@ emailInput.addEventListener("focusout", () => {
     emailSibling.toggleAttribute("active");
   }
 
-  emailSibling.textContent = EMAIL_ERROR_STRING;
-  emailInput.setCustomValidity(EMAIL_ERROR_STRING);
+  emailSibling.textContent = string.EMAIL_ERROR_STRING;
+  emailInput.setCustomValidity(string.EMAIL_ERROR_STRING);
 });
 
 emailInput.addEventListener("keypress", (event) => {
@@ -120,8 +118,8 @@ zipcodeInput.addEventListener("focusout", () => {
     zipCodeSibling.toggleAttribute("active");
   }
 
-  zipCodeSibling.textContent = ZIPCODE_ERROR_STRING;
-  zipcodeInput.setCustomValidity(ZIPCODE_ERROR_STRING);
+  zipCodeSibling.textContent = string.ZIPCODE_ERROR_STRING;
+  zipcodeInput.setCustomValidity(string.ZIPCODE_ERROR_STRING);
 });
 
 zipcodeInput.addEventListener("keypress", (event) => {
@@ -175,8 +173,8 @@ passwordInput.addEventListener("focusout", () => {
     passwordSibling.toggleAttribute("active");
   }
 
-  passwordSibling.textContent = PASSWORD_LENGTH_ERROR_STRING;
-  passwordInput.setCustomValidity(PASSWORD_LENGTH_ERROR_STRING);
+  passwordSibling.textContent = string.PASSWORD_LENGTH_ERROR_STRING;
+  passwordInput.setCustomValidity(string.PASSWORD_LENGTH_ERROR_STRING);
 });
 
 passwordInput.addEventListener("keypress", (event) => {
@@ -232,8 +230,8 @@ confirmPasswordInput.addEventListener("focusout", () => {
     confirmPasswordSibling.toggleAttribute("active");
   }
 
-  confirmPasswordSibling.textContent = CONFIRM_EQUALITY_ERROR_STRING;
-  confirmPasswordInput.setCustomValidity(CONFIRM_EQUALITY_ERROR_STRING);
+  confirmPasswordSibling.textContent = string.CONFIRM_EQUALITY_ERROR_STRING;
+  confirmPasswordInput.setCustomValidity(string.CONFIRM_EQUALITY_ERROR_STRING);
 });
 
 confirmPasswordInput.addEventListener("keypress", (event) => {
@@ -281,8 +279,8 @@ countrySelect.addEventListener("focusout", () => {
     countrySelectSibling.toggleAttribute("active");
   }
 
-  countrySelectSibling.textContent = NO_SELECTION_ERROR;
-  countrySelect.setCustomValidity(NO_SELECTION_ERROR);
+  countrySelectSibling.textContent = string.NO_SELECTION_ERROR;
+  countrySelect.setCustomValidity(string.NO_SELECTION_ERROR);
   countrySelect.className = "fieldEmptyError";
   console.log("selection lost focus");
 });
@@ -294,7 +292,6 @@ submitButton.addEventListener("click", (event) => {
   event.preventDefault();
   blur();
   console.log("Submit button clicked");
-  errorFlag = false;
 
   const inputToValidate = [
     emailInput,
@@ -334,7 +331,7 @@ submitButton.addEventListener("click", (event) => {
     return;
   }
 
-  alert("Everything is valid submitting");
+  alert(string.VALIDATION_ACCEPTED_STRING);
 });
 
 function addRipple(event) {
@@ -365,5 +362,5 @@ function showError(input) {
     nextElementSibling.toggleAttribute("active");
   }
 
-  nextElementSibling.textContent = "Field cannot be empty";
+  nextElementSibling.textContent = string.EMPTY_FIELD_ERROR_STRING;
 }
