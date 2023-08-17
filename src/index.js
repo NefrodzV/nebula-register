@@ -1,81 +1,65 @@
 import "./style.css";
 import string from "./res/string";
-console.log("Hello js in webpack!");
-const emailInput = document.querySelector("#email");
+import Validator from "./utils/Validator";
 
+const emailInput = document.querySelector("#email");
 const emailSibling = emailInput.nextElementSibling;
-const emailRegExp = /\w{5,}@\w{5,}\.[a-z]{3,}/;
-// const EMAIL_ERROR_STRING = "Enter a valid email example: example@gmail.com";
+// const emailRegExp = /\w{5,}@\w{5,}\.[Aa-Zz]{3,}/;
 
 const zipcodeInput = document.querySelector("#zipcode");
 const zipCodeSibling = zipcodeInput.nextElementSibling;
-const ZIPCODE_ERROR_STRING = "Zipcode must be 5 numbers";
 const zipcodeRegExp = /[0-9]{5}/;
 
 const passwordInput = document.querySelector("#password");
 const passwordSibling = passwordInput.nextElementSibling;
 const passwordRegexExp = /\w{8,}/;
-const PASSWORD_LENGTH_ERROR_STRING = "Must be minimum 8 caracters";
 
 const confirmPasswordInput = document.querySelector("#confirm-password");
 const confirmPasswordSibling = confirmPasswordInput.nextElementSibling;
-const CONFIRM_EQUALITY_ERROR_STRING =
-  "Confirm password is not equal to password";
 
 const countrySelect = document.querySelector("#country");
 const countrySelectSibling = countrySelect.nextElementSibling;
-const NO_SELECTION_ERROR = "Make a selection";
 
 emailInput.addEventListener("input", () => {
-  console.log(emailInput.value);
-
-  if (emailInput.value.length === 0 && emailSibling.hasAttribute("active")) {
-    emailSibling.toggleAttribute("active");
+  if (Validator.isEmpty(emailInput.value) && isActive(emailSibling)) {
+    toggleActive(emailSibling);
   }
-  const isValid = emailRegExp.test(emailInput.value);
 
-  if (isValid) {
-    if (emailSibling.hasAttribute("active")) {
-      emailSibling.toggleAttribute("active");
+  if (Validator.isValid(emailInput.value, Validator.emailRegExp)) {
+    if (isActive(emailSibling)) {
+      toggleActive(emailSibling);
     }
-    emailInput.classList.remove("fieldEmptyError");
-    emailInput.setCustomValidity("");
-    console.log("Email is valid");
+    fieldIsValid(emailInput);
     return;
   }
 });
 
 emailInput.addEventListener("focusout", () => {
-  console.log("lost focus");
-  if (emailInput.value.length === 0) return;
-  const isValid = emailRegExp.test(emailInput.value.toLowerCase());
-  if (isValid) {
-    if (emailSibling.hasAttribute("active")) {
-      emailSibling.toggleAttribute("active");
+  if (Validator.isEmpty(emailInput.value)) return;
+
+  if (Validator.isValid(emailInput.value, Validator.emailRegExp)) {
+    if (isActive(emailSibling)) {
+      toggleActive(emailSibling);
     }
 
-    console.log("email is valid and has lost focus");
-    emailInput.setCustomValidity("");
+    fieldIsValid(emailInput);
     return;
   }
 
-  if (!emailSibling.hasAttribute("active")) {
-    emailSibling.toggleAttribute("active");
+  if (!isActive(emailSibling)) {
+    toggleActive(emailSibling);
   }
-
   emailSibling.textContent = string.EMAIL_ERROR_STRING;
   emailInput.setCustomValidity(string.EMAIL_ERROR_STRING);
 });
 
 emailInput.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
-    // console.log("Enter pressed");
     event.preventDefault();
     emailInput.blur();
   }
 
-  if (event.code === "Space" && emailInput.value.trim().length === 0) {
-    // console.log("space pressed");
+  if (event.code === "Space" && Validator.isEmpty(emailInput.value)) {
     event.preventDefault();
   }
 });
@@ -363,4 +347,19 @@ function showError(input) {
   }
 
   nextElementSibling.textContent = string.EMPTY_FIELD_ERROR_STRING;
+}
+
+function isActive(element) {
+  return element.hasAttribute("active");
+}
+
+function toggleActive(element) {
+  element.toggleAttribute("active");
+}
+
+function fieldIsValid(input) {
+  if (input.classList.contains("fieldEmptyError")) {
+    input.classList.remove("fieldEmptyError");
+  }
+  input.setCustomValidity("");
 }

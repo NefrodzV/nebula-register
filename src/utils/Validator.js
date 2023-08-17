@@ -7,7 +7,7 @@ const Validator = (() => {
       return regex.test(value);
     },
     passwordRegExp: /\w{8,}/,
-    emailRegExp: /\w{5,}@\w{5,}\.[Aa-Zz]{3,}/,
+    emailRegExp: /\w{5,}@\w{5,}\.[a-z]{3,}/,
     zipcodeRegExp: /[0-9]{5}/,
   };
 })();
