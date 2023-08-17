@@ -8,7 +8,7 @@ const emailSibling = emailInput.nextElementSibling;
 
 const zipcodeInput = document.querySelector("#zipcode");
 const zipCodeSibling = zipcodeInput.nextElementSibling;
-const zipcodeRegExp = /[0-9]{5}/;
+// const zipcodeRegExp = /[0-9]{5}/;
 
 const passwordInput = document.querySelector("#password");
 const passwordSibling = passwordInput.nextElementSibling;
@@ -29,7 +29,7 @@ emailInput.addEventListener("input", () => {
     if (isActive(emailSibling)) {
       toggleActive(emailSibling);
     }
-    fieldIsValid(emailInput);
+    setFieldValid(emailInput);
     return;
   }
 });
@@ -42,15 +42,15 @@ emailInput.addEventListener("focusout", () => {
       toggleActive(emailSibling);
     }
 
-    fieldIsValid(emailInput);
+    setFieldValid(emailInput);
     return;
   }
 
   if (!isActive(emailSibling)) {
     toggleActive(emailSibling);
   }
-  emailSibling.textContent = string.EMAIL_ERROR_STRING;
-  emailInput.setCustomValidity(string.EMAIL_ERROR_STRING);
+
+  setFieldInvalid(emailInput, string.EMAIL_ERROR_STRING);
 });
 
 emailInput.addEventListener("keypress", (event) => {
@@ -357,9 +357,13 @@ function toggleActive(element) {
   element.toggleAttribute("active");
 }
 
-function fieldIsValid(input) {
+function setFieldValid(input) {
   if (input.classList.contains("fieldEmptyError")) {
     input.classList.remove("fieldEmptyError");
   }
   input.setCustomValidity("");
+}
+function setFieldInvalid(input, errorMsg) {
+  input.nextElementSibling.textContent = errorMsg;
+  input.setCustomValidity(errorMsg);
 }
