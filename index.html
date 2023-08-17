@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nebula Register</title>
+  </head>
+  <body>
+    <script src="main.js" defer></script>
+    <form method="post" action="#">
+      <h1>Create account</h1>
+      <label for="email">
+        Email
+        <input
+          placeholder="myemail@hotmail.com"
+          type="email"
+          id="email"
+          name="email"
+          pattern="\w{5,}@\w{5,}\.[a-z]{3,}"
+          required
+        />
+        <span class="error"></span>
+      </label>
+      <div class="wrapper">
+        <label for="zipcode">
+          Zipcode
+          <input
+            placeholder="#####"
+            type="text"
+            id="zipcode"
+            name="zipcode"
+            maxlength="5"
+            pattern="[0-9]{5}"
+            required
+          />
+          <span class="error"></span>
+        </label>
+        <label for="country">
+          Country
+          <select id="country" name="country" required>
+            <option value="" hidden>-- Make a selection --</option>
+            <option value="puerto rico">Puerto Rico</option>
+            <option value="united states">USA</option>
+            <option value="canada">Canada</option>
+          </select>
+          <span class="error"></span>
+        </label>
+      </div>
+      <label for="password">
+        Password
+        <input
+          placeholder="Enter password"
+          type="text"
+          name="password"
+          id="password"
+          pattern="\w{8,}"
+          required
+        />
+        <span class="error"></span>
+      </label>
+      <label
+        >Confirm password
+        <input
+          placeholder="Confirm password"
+          invalid="true"
+          type="text"
+          name="password_confirm"
+          id="confirm-password"
+          pattern="\w{8,}"
+          required
+        /><span class="error"></span>
+      </label>
+      <button type="submit">Register</button>
+      <a href="#">Already have an account?</a>
+    </form>
+  </body>
+</html>
