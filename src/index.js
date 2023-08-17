@@ -221,6 +221,7 @@ submitButton.addEventListener("click", (event) => {
   ];
 
   // For loop to check if the are empty
+  //Could have used the validator class but used its class for validity
   for (let i = 0; i < inputsToValidate.length; i++) {
     console.log("iteration " + i);
     let input = inputsToValidate[i];
@@ -247,7 +248,6 @@ submitButton.addEventListener("click", (event) => {
   ) {
     return;
   }
-
   alert(string.VALIDATION_ACCEPTED_STRING);
 });
 
